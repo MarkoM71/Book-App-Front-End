@@ -30,6 +30,7 @@ async function renderBooks() {
             const bookYear = document.createElement('p')
             const deleteButton = document.createElement('button');
             const editButton = document.createElement('button');
+            const favoriteButton = document.createElement('button');
 
             bookDiv.className = 'book';
             bookTitle.className = 'book-title';
@@ -37,21 +38,27 @@ async function renderBooks() {
             bookYear.className = 'book-release-year'
             deleteButton.className = 'delete';
             editButton.className = 'edit';
+            favoriteButton.className = 'favorite'
+            
 
             bookTitle.textContent = book.title;
             bookAuthor.textContent = book.author;
             bookYear.textContent = book.year;
+
 
             deleteButton.textContent = 'Delete';
             deleteButton.addEventListener('click', () => deleteBook(book._id))
 
             editButton.textContent = 'Edit';
 
+            favoriteButton.textContent = 'Favorite';
+
             bookDiv.appendChild(bookTitle);
             bookDiv.appendChild(bookAuthor);
             bookDiv.appendChild(bookYear);
             bookDiv.appendChild(deleteButton);
             bookDiv.appendChild(editButton);
+            bookDiv.appendChild(favoriteButton);
 
             bookContainer.appendChild(bookDiv);
         })
@@ -70,5 +77,15 @@ async function deleteBook(bookId) {
     }
 }
 
+
+//Add Book to Favorites
+
+
+
+
+
+
+
+//Take Book Away from Favorites
 
 
