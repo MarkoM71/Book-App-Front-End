@@ -31,6 +31,7 @@ async function renderBooks() {
             const deleteButton = document.createElement('button');
             const editButton = document.createElement('button');
             const favoriteButton = document.createElement('button');
+            const unFavoriteButton = document.createElement('button');
 
             bookDiv.className = 'book';
             bookTitle.className = 'book-title';
@@ -38,7 +39,8 @@ async function renderBooks() {
             bookYear.className = 'book-release-year'
             deleteButton.className = 'delete';
             editButton.className = 'edit';
-            favoriteButton.className = 'favorite'
+            favoriteButton.className = 'favorite';
+            unFavoriteButton.className = 'un-favorite';
             
 
             bookTitle.textContent = book.title;
@@ -52,8 +54,12 @@ async function renderBooks() {
             editButton.textContent = 'Edit';
 
             favoriteButton.textContent = 'Favorite';
-            favoriteButton.setAttribute('data-book-id', book._id); //Added this
+            favoriteButton.setAttribute('data-book-fav-id', book._id); //Added this
             favoriteButton.addEventListener('click', () => addFavorite(book._id));
+
+            unFavoriteButton.textContent = 'Un-Favorite';
+            unFavoriteButton.setAttribute('data-book-unFav-id', book._id)
+            unFavoriteButton.addEventListener('click', () => unFavorite(book._id));
 
             bookDiv.appendChild(bookTitle);
             bookDiv.appendChild(bookAuthor);
@@ -61,6 +67,7 @@ async function renderBooks() {
             bookDiv.appendChild(deleteButton);
             bookDiv.appendChild(editButton);
             bookDiv.appendChild(favoriteButton);
+            bookDiv.appendChild(unFavoriteButton);
 
             bookContainer.appendChild(bookDiv);
         })
@@ -90,12 +97,12 @@ async function deleteBook(bookId) {
 async function addFavorite(bookId) {
     try {
         const user = JSON.parse(localStorage.getItem('user'));
-        console.log(user);
+        // console.log(user);
         const userId = user.user._id; // Assuming the user's ID is stored in the localStorage
 
         // Find the button element by the book ID
-        const buttonElement = document.querySelector(`[data-book-id="${bookId}"]`);
-        if (!buttonElement) {
+        const favButtonElement = document.querySelector(`[data-book-fav-id="${bookId}"]`);
+        if (!favButtonElement) {
             throw new Error('Favorite button not found');
         }
 
@@ -106,13 +113,36 @@ async function addFavorite(bookId) {
 
         console.log('Favorite added:', response.data);
         // Update the UI accordingly
-         buttonElement.style.backgroundColor = 'yellow';
+         favButtonElement.style.backgroundColor = 'yellow';
 
     } catch (error) {
         console.error('Error adding favorite:', error.response ? error.response.data : error.message);
         // Handle errors from server or network issues
     }
 }
+
+//Remove Favorites
+async function unFavorite(bookId) {
+    try {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const userId = user.user._id;
+
+        const response = await axios.patch('https://book-app-cfffe880e610.herokuapp.com/users/favorites', {
+            userId: userId,
+            bookId: bookId
+        });
+
+        console.log('Favorite deleted:', response.data);
+        const favButtonElement = document.querySelector(`[data-book-fav-id="${bookId}"]`);
+
+        favButtonElement.style.backgroundColor = '';
+
+    } catch (error) {
+        console.error('Error deleting favorite:', error.response ? error.response.data : error.message);
+    }
+}
+
+
 
 
 
