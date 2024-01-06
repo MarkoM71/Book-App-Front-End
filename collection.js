@@ -52,6 +52,7 @@ async function renderBooks() {
             editButton.textContent = 'Edit';
 
             favoriteButton.textContent = 'Favorite';
+            favoriteButton.addEventListener('click', () => addFavorite(book._id));
 
             bookDiv.appendChild(bookTitle);
             bookDiv.appendChild(bookAuthor);
@@ -77,11 +78,57 @@ async function deleteBook(bookId) {
     }
 }
 
+const user = JSON.parse(localStorage.getItem('user'));
+console.log(user);
+console.log(user._id)
+console.log(typeof user);
+console.log(Object.keys(user));
+console.log(user.user._id)
+//Add Favorite
+async function addFavorite(bookId) {
+    try {
+        const user = JSON.parse(localStorage.getItem('user'));
+        console.log(user);
+        const userId = user.user._id; // Assuming the user's ID is stored in the localStorage
 
-//Add Book to Favorites
+        const response = await axios.post('https://book-app-cfffe880e610.herokuapp.com/users/favorites', {
+            userId: userId,
+            bookId: bookId
+        });
+
+        console.log('Favorite added:', response.data);
+        // Update the UI accordingly
+        // const favButton = document.querySelector('.favorite');
+        // if (favButton) {
+        //     favButton.style.backgroundColor = 'yellow';
+        // }
 
 
 
+    } catch (error) {
+        console.error('Error adding favorite:', error.response ? error.response.data : error.message);
+        // Handle errors from server or network issues
+    }
+}
+
+
+
+
+//Add Book to Favorites// This is something I added today.
+// async function toggleFavorite(bookId, button) {
+//     try {
+        // Assuming you have a function to get the current user's ID
+        // const userId = getCurrentUserId(); //How do I do this?
+//         await axios.post(`https://book-app-cfffe880e610.herokuapp.com/users/${userId}/favorites`, { bookId });
+//         button.style.backgroundColor = button.style.backgroundColor === 'yellow' ? 'initial' : 'yellow';
+//     } catch (error) {
+//         console.error('Error toggling favorite:', error);
+//     }
+// }
+
+// toggleFavorite(bookId, button) {
+//         button.style.backgroundColor = button.style.backgroundColor === 'yellow' ? 'initial' : 'yellow';
+// };
 
 
 

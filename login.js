@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const email = document.getElementById('email').value;
 
         try {
-            const response = await axios.post('https://book-app-cfffe880e610.herokuapp.com/users/findOne', {
+            const response = await axios.post('https://book-app-cfffe880e610.herokuapp.com/users/login', {
                 name: name,
                 email: email
             });
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('user', JSON.stringify(response.data));
 
                 // Redirect to the book collections page
-                window.location.href = '/path/to/collection.html';
+                window.location.href = './collection.html';
             }
         } catch (error) {
             console.error('Error logging in:', error);
