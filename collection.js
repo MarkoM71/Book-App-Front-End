@@ -52,6 +52,7 @@ async function renderBooks() {
             editButton.textContent = 'Edit';
 
             favoriteButton.textContent = 'Favorite';
+            favoriteButton.setAttribute('data-book-id', book._id); //Added this
             favoriteButton.addEventListener('click', () => addFavorite(book._id));
 
             bookDiv.appendChild(bookTitle);
@@ -78,18 +79,25 @@ async function deleteBook(bookId) {
     }
 }
 
-const user = JSON.parse(localStorage.getItem('user'));
-console.log(user);
-console.log(user._id)
-console.log(typeof user);
-console.log(Object.keys(user));
-console.log(user.user._id)
+// const user = JSON.parse(localStorage.getItem('user'));
+// console.log(user);
+// console.log(user._id)
+// console.log(typeof user);
+// console.log(Object.keys(user));
+// console.log(user.user._id)
+
 //Add Favorite
 async function addFavorite(bookId) {
     try {
         const user = JSON.parse(localStorage.getItem('user'));
         console.log(user);
         const userId = user.user._id; // Assuming the user's ID is stored in the localStorage
+
+        // Find the button element by the book ID
+        const buttonElement = document.querySelector(`[data-book-id="${bookId}"]`);
+        if (!buttonElement) {
+            throw new Error('Favorite button not found');
+        }
 
         const response = await axios.post('https://book-app-cfffe880e610.herokuapp.com/users/favorites', {
             userId: userId,
@@ -98,18 +106,16 @@ async function addFavorite(bookId) {
 
         console.log('Favorite added:', response.data);
         // Update the UI accordingly
-        // const favButton = document.querySelector('.favorite');
-        // if (favButton) {
-        //     favButton.style.backgroundColor = 'yellow';
-        // }
-
-
+         buttonElement.style.backgroundColor = 'yellow';
 
     } catch (error) {
         console.error('Error adding favorite:', error.response ? error.response.data : error.message);
         // Handle errors from server or network issues
     }
 }
+
+
+
 
 
 
@@ -129,9 +135,6 @@ async function addFavorite(bookId) {
 // toggleFavorite(bookId, button) {
 //         button.style.backgroundColor = button.style.backgroundColor === 'yellow' ? 'initial' : 'yellow';
 // };
-
-
-
 
 //Take Book Away from Favorites
 
