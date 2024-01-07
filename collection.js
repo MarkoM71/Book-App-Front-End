@@ -76,6 +76,37 @@ async function renderBooks() {
     }
 }
 
+document.getElementById('book-form').addEventListener('submit', addBook);
+
+//Add Book 
+async function addBook(event) {
+    event.preventDefault();
+
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const year = document.getElementById('year').value;
+
+    const bookData = {
+        title: title,
+        author: author,
+        year: year
+    };
+
+    try {
+        await axios.post('https://book-app-cfffe880e610.herokuapp.com/books/', bookData)
+
+        document.getElementById('title').value = '';
+        document.getElementById('author').value = '';
+        document.getElementById('year').value = '';
+
+        await renderBooks();
+    } catch (error) {
+        console.error('Error submitting book:', error);
+    }
+}
+
+
+
 //Delete Book
 async function deleteBook(bookId) {
     try {
@@ -86,19 +117,20 @@ async function deleteBook(bookId) {
     }
 }
 
-// const user = JSON.parse(localStorage.getItem('user'));
-// console.log(user);
-// console.log(user._id)
-// console.log(typeof user);
-// console.log(Object.keys(user));
-// console.log(user.user._id)
+
+const user = JSON.parse(localStorage.getItem('user'));
+console.log(user);
+console.log(user._id)
+console.log(typeof user);
+console.log(Object.keys(user));
+console.log(user._id)
 
 //Add Favorite
 async function addFavorite(bookId) {
     try {
         const user = JSON.parse(localStorage.getItem('user'));
         // console.log(user);
-        const userId = user.user._id; // Assuming the user's ID is stored in the localStorage
+        const userId = user.user._id; // Assuming the user's ID is stored in the localStorage.  user.user._id; --> user._id
 
         // Find the button element by the book ID
         const favButtonElement = document.querySelector(`[data-book-fav-id="${bookId}"]`);
@@ -125,7 +157,7 @@ async function addFavorite(bookId) {
 async function unFavorite(bookId) {
     try {
         const user = JSON.parse(localStorage.getItem('user'));
-        const userId = user.user._id;
+        const userId = user.user._id; //user.user._id; --> user._id
 
         const response = await axios.patch('https://book-app-cfffe880e610.herokuapp.com/users/favorites', {
             userId: userId,
@@ -149,23 +181,5 @@ async function unFavorite(bookId) {
 
 
 
-
-//Add Book to Favorites// This is something I added today.
-// async function toggleFavorite(bookId, button) {
-//     try {
-        // Assuming you have a function to get the current user's ID
-        // const userId = getCurrentUserId(); //How do I do this?
-//         await axios.post(`https://book-app-cfffe880e610.herokuapp.com/users/${userId}/favorites`, { bookId });
-//         button.style.backgroundColor = button.style.backgroundColor === 'yellow' ? 'initial' : 'yellow';
-//     } catch (error) {
-//         console.error('Error toggling favorite:', error);
-//     }
-// }
-
-// toggleFavorite(bookId, button) {
-//         button.style.backgroundColor = button.style.backgroundColor === 'yellow' ? 'initial' : 'yellow';
-// };
-
-//Take Book Away from Favorites
 
 
