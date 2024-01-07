@@ -181,7 +181,8 @@ async function addFavorite(bookId) {
 
         console.log('Favorite added:', response.data);
         // Update the UI accordingly
-         favButtonElement.style.backgroundColor = 'yellow';
+        favButtonElement.style.backgroundColor = 'yellow';
+        favButtonElement.style.color = 'black';
 
     } catch (error) {
         console.error('Error adding favorite:', error.response ? error.response.data : error.message);
@@ -204,6 +205,7 @@ async function unFavorite(bookId) {
         const favButtonElement = document.querySelector(`[data-book-fav-id="${bookId}"]`);
 
         favButtonElement.style.backgroundColor = '';
+        favButtonElement.style.color = '';
 
     } catch (error) {
         console.error('Error deleting favorite:', error.response ? error.response.data : error.message);
