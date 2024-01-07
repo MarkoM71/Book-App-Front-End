@@ -16,7 +16,21 @@
         <input type="text" id="year" placeholder="Year" />
         <button id="submit">Submit</button>
     </form>
-    
+     
+    <!--ADD MODAL HERE-->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <form id="editBookForm">
+                <input type="hidden" id="editBookId">
+                <input type="text" id="editTitle" placeholder="Title">
+                <input type="text" id="editAuthor" placeholder="Author">
+                <input type="text" id="editYear" placeholder="Year">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <!--END OF MODAL-->
     <div class="collection-container"></div>
 </body>
 </html>

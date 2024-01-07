@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-  renderBooks();
+    renderBooks();
+    
+    //EDIT BOOK FUNCTIONALITY
+    document.getElementById('editBookForm').addEventListener('submit', editBook);
 });
 
 let books = [];
@@ -52,6 +55,10 @@ async function renderBooks() {
             deleteButton.addEventListener('click', () => deleteBook(book._id))
 
             editButton.textContent = 'Edit';
+            editButton.addEventListener('click', () => openEditModal(book));
+
+            //ADD THIS TO OPEN MODAL
+            editButton.addEventListener('click', () => openEditModal(book));
 
             favoriteButton.textContent = 'Favorite';
             favoriteButton.setAttribute('data-book-fav-id', book._id); //Added this
@@ -105,6 +112,35 @@ async function addBook(event) {
     }
 }
 
+//EDIT BOOK FUNCTIONALITY
+function openEditModal(book) {
+    document.getElementById('editBookId').value = book._id;
+    document.getElementById('editTitle').value = book.title;
+    document.getElementById('editAuthor').value = book.author;
+    document.getElementById('editYear').value = book.year;
+
+    document.getElementById('editModal').style.display = 'block';
+}
+
+//EDIT BOOK FUNCTIONALITY
+async function editBook(event) {
+    event.preventDefault();
+
+    const bookId = document.getElementById('editBookId').value;
+    const updatedBookData = {
+        title: document.getElementById('editTitle').value,
+        author: document.getElementById('editAuthor').value,
+        year: document.getElementById('editYear').value
+    };
+
+    try {
+        await axios.put(`https://book-app-cfffe880e610.herokuapp.com/books/${bookId}`, updatedBookData);
+        document.getElementById('editModal').style.display = 'none';
+        await renderBooks();
+    } catch (error) {
+        console.error('Error updating book:', error);
+    }
+}
 
 
 //Delete Book
@@ -118,12 +154,12 @@ async function deleteBook(bookId) {
 }
 
 
-const user = JSON.parse(localStorage.getItem('user'));
-console.log(user);
-console.log(user._id)
-console.log(typeof user);
-console.log(Object.keys(user));
-console.log(user._id)
+// const user = JSON.parse(localStorage.getItem('user'));
+// console.log(user);
+// console.log(user._id)
+// console.log(typeof user);
+// console.log(Object.keys(user));
+// console.log(user._id)
 
 //Add Favorite
 async function addFavorite(bookId) {
