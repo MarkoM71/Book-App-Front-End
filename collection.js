@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     
     //Edit Book Functionality
     document.getElementById('editBookForm').addEventListener('submit', editBook);
+
+    document.querySelector('.close-button').addEventListener('click', function() {
+        document.getElementById('editModal').style.display = 'none';
+    });
 });
 
 let books = [];
