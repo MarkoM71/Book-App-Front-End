@@ -75,56 +75,7 @@ button:hover {
 }
 
 
-
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}  */
-
-/* Styling for the book container and books */
-/* .collection-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-}
-
-.book {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 200px;
-}
-
-.book-title,
-.book-author,
-.book-release-year {
-    margin: 5px 0;
-} */
-
-/* Button styling */
-/* button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 15px;
-    cursor: pointer;
-    margin-top: 10px;
-    display: block;
-    width: 100%;
-}
-
-button:hover {
-    background-color: #0056b3;
-} */
-
-/* Modal styling */
+/* Modal Styling On Collections Page */
 .modal {
     display: none;
     position: fixed;
@@ -161,16 +112,6 @@ button:hover {
     cursor: pointer;
 }
 
-/* Input styling */
-/* input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-} */
-
 /* Submit button in the modal */
 #editBookForm button {
     background-color: #28a745;
@@ -179,3 +120,4 @@ button:hover {
 #editBookForm button:hover {
     background-color: #218838;
 }
+/* End Modal Styling On Collections Page */

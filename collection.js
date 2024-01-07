@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     renderBooks();
     
-    //EDIT BOOK FUNCTIONALITY
+    //Edit Book Functionality
     document.getElementById('editBookForm').addEventListener('submit', editBook);
 });
 
@@ -57,11 +57,11 @@ async function renderBooks() {
             editButton.textContent = 'Edit';
             editButton.addEventListener('click', () => openEditModal(book));
 
-            //ADD THIS TO OPEN MODAL
+            //Add this to Open Modal
             editButton.addEventListener('click', () => openEditModal(book));
 
             favoriteButton.textContent = 'Favorite';
-            favoriteButton.setAttribute('data-book-fav-id', book._id); //Added this
+            favoriteButton.setAttribute('data-book-fav-id', book._id); 
             favoriteButton.addEventListener('click', () => addFavorite(book._id));
 
             unFavoriteButton.textContent = 'Un-Favorite';
@@ -112,7 +112,7 @@ async function addBook(event) {
     }
 }
 
-//EDIT BOOK FUNCTIONALITY
+//Open Edit Modal 
 function openEditModal(book) {
     document.getElementById('editBookId').value = book._id;
     document.getElementById('editTitle').value = book.title;
@@ -122,7 +122,7 @@ function openEditModal(book) {
     document.getElementById('editModal').style.display = 'block';
 }
 
-//EDIT BOOK FUNCTIONALITY
+//EDIT BOOK FUNCTIONALITY 
 async function editBook(event) {
     event.preventDefault();
 
@@ -154,19 +154,11 @@ async function deleteBook(bookId) {
 }
 
 
-// const user = JSON.parse(localStorage.getItem('user'));
-// console.log(user);
-// console.log(user._id)
-// console.log(typeof user);
-// console.log(Object.keys(user));
-// console.log(user._id)
-
 //Add Favorite
 async function addFavorite(bookId) {
     try {
         const user = JSON.parse(localStorage.getItem('user'));
-        // console.log(user);
-        const userId = user.user._id; // Assuming the user's ID is stored in the localStorage.  user.user._id; --> user._id
+        const userId = user.user._id; 
 
         // Find the button element by the book ID
         const favButtonElement = document.querySelector(`[data-book-fav-id="${bookId}"]`);
@@ -180,13 +172,12 @@ async function addFavorite(bookId) {
         });
 
         console.log('Favorite added:', response.data);
-        // Update the UI accordingly
+        
         favButtonElement.style.backgroundColor = 'yellow';
         favButtonElement.style.color = 'black';
 
     } catch (error) {
         console.error('Error adding favorite:', error.response ? error.response.data : error.message);
-        // Handle errors from server or network issues
     }
 }
 
@@ -194,7 +185,7 @@ async function addFavorite(bookId) {
 async function unFavorite(bookId) {
     try {
         const user = JSON.parse(localStorage.getItem('user'));
-        const userId = user.user._id; //user.user._id; --> user._id
+        const userId = user.user._id; 
 
         const response = await axios.patch('https://book-app-cfffe880e610.herokuapp.com/users/favorites', {
             userId: userId,

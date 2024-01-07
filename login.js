@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         } catch (error) {
             console.error('Error logging in:', error);
-            // Handle error (e.g., show message to user)
         }
     });
 
