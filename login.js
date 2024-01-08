@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    //Login Existing User
     const form = document.getElementById('user-form');
 
     form.addEventListener('submit', async function (e) {
@@ -19,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Store user data if needed (e.g., in localStorage)
                 localStorage.setItem('user', JSON.stringify(response.data));
 
+                // Clear User Input
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+
                 // Redirect to the book collections page
                 window.location.href = './collection.html';
             }
@@ -27,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    //Add New User
     const newForm = document.getElementById('new-user-form')
 
     newForm.addEventListener('submit', async function (e) {
@@ -47,8 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Store user data if needed (e.g., in localStorage)
                 localStorage.setItem('user', JSON.stringify(response.data));
 
+                // Clear New User Input
+                document.getElementById('new-name').value = '';
+                document.getElementById('new-email').value = '';
+
                 // Redirect to the book collections page
-                window.location.href = './collection.html';
+                window.location.href = './registration.html';
             }
         } catch (error) {
             console.error('Error logging in:', error);
